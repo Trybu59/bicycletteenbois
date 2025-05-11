@@ -31,7 +31,7 @@
 <body>
   <div id="iframeContainer">
     <div id="loader" class="iconify"></div>
-    <iframe id="bubbleIframe" src="https://app.trybu.io/bicycletteenbois?lang=fr_fr" frameborder="0" allowfullscreen></iframe>
+    <iframe id="bubbleIframe" frameborder="0" allowfullscreen></iframe>
   </div>
 
   <script>
@@ -64,6 +64,24 @@
 
       // Appliquer l'URL de données comme arrière-plan
       loader.style.backgroundImage = 'url(' + dataUrl + ')';
+
+      // Fonction pour extraire les paramètres de l'URL
+      function getQueryParam(name) {
+        var urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+
+      // Récupérer le paramètre "product" de l'URL de la page
+      var productParam = getQueryParam('product');
+
+      // Construire l'URL de l'iframe en ajoutant le paramètre "product" si présent
+      var iframeUrl = 'https://app.trybu.io/bicycletteenbois?lang=fr_fr';
+      if (productParam) {
+        iframeUrl += '&product=' + encodeURIComponent(productParam);
+      }
+
+      // Définir l'URL de l'iframe
+      iframe.src = iframeUrl;
 
       function hideLoader() {
         loader.style.display = 'none';
